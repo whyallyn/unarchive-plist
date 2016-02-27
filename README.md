@@ -116,3 +116,16 @@ $ python unarchive_plist.py \
     -f xml1 \
     -w com.apple.LSSharedFileList.RecentApplications_readable.plist
 ```
+
+Troubleshooting
+---------------
+`unarchive_plist.py` utilizes [pyobjc](https://bitbucket.org/ronaldoussoren/pyobjc/src) to call Objective-C methods and frameworks. The limitation of pyobjc is that it does not have wrappers for every Framework on OS X or iOS, especially newer ones. This causes `unarchive_plist.py` to throw an error when a class type is unknown by pyobjc:
+
+```
+$ python unarchive_plist.py -r StateModel1.archive.plist -w new.plist
+[ERROR] NSInvalidUnarchiveOperationException - *** -[NSKeyedUnarchiver decodeObjectForKey:]: cannot decode object of class (RTStateModel) for key (root); the class may be defined in source code or a library that is not linked
+```
+
+Future Work
+-----------
+Future work will be focused on adding newer and missing Frameworks and objects type to pyobjc in order to have more comprehensive support of plist conversion, or porting this project to Objective-C.
