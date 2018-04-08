@@ -73,10 +73,8 @@ def nskeyedarchive_to_nsdict(plist_name):
         sys.exit(1)
 
     if nsdict:
-        items = []
         # read SFLListItem "items" in order and return as list of nsdicts
-        for item in sorted(nsdict["items"], key=lambda k: k.order()):
-            items.append(sfllistitem_to_nsdict(item))
+        items = sorted(nsdict.items())
     else:
         print("[ERROR] Failed to unarchive %s. Check input name." % plist_name)
         sys.exit(1)
